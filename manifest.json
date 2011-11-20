@@ -1,0 +1,17 @@
+{
+    "name": "Additional key shortcuts",
+    "version": "0.1",
+    "description": "Custom shortcuts",
+
+    "content_scripts": [ {
+            "matches": [ "http://*/*", "https://*/*" ],
+            "js": [ "keys.js" ]
+        }
+    ],
+
+    "permissions": [
+        "tabs", "http://*/*", "http://*/*"
+    ],
+
+    "background_page": "bg.html"
+}
