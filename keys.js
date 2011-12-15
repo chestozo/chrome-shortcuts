@@ -1,7 +1,6 @@
-(function(){
+(function(doc, win){
 
 var processKey = function(evt) {
-    console.log(evt);
     if (evt.metaKey && evt.which == 80) {
         // Send message to pin / unpin.
         var port = chrome.extension.connect();
@@ -15,6 +14,6 @@ var processKey = function(evt) {
     }
 };
 
-document.addEventListener("keydown", processKey, false);
+doc.addEventListener("keydown", processKey, false);
 
 })(document, window);

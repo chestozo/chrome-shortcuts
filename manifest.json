@@ -3,14 +3,21 @@
     "version": "0.1",
     "description": "Custom shortcuts",
 
-    "content_scripts": [ {
-            "matches": [ "http://*/*", "https://*/*" ],
+    "content_scripts": [
+        {
+            "matches": [ "*://*/*" ],
             "js": [ "keys.js" ]
+        }
+
+        // Mu
+        ,{
+            "matches": [ "*://music.yandex.ru/*" ],
+            "js": [ "mu.js" ]
         }
     ],
 
     "permissions": [
-        "tabs", "http://*/*", "http://*/*"
+        "tabs", "*://*/*"
     ],
 
     "background_page": "bg.html"
