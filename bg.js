@@ -2,8 +2,12 @@
 
 chrome.extension.onConnect.addListener(function(port) {
     port.onMessage.addListener(function(message, port) {
+        if (!message) {
+            return;
+        }
+
         // keys.js
-        if (message && message.message === "pin-toggle") {
+        if (message.message === "pin-toggle") {
             // pin / unpin tab
             chrome.tabs.getSelected(null, function(tab) {
                 chrome.tabs.update(tab.id, { pinned: !tab.pinned })
@@ -11,9 +15,11 @@ chrome.extension.onConnect.addListener(function(port) {
         }
 
         // mu.js
-        if (message && message.message === "login:open") {
+        if (message.message === "login:open") {
             chrome.tabs.executeScript(null, {
-                code: "var customEvent = document.createEvent('Event');customEvent.initEvent('click', true, true);document.querySelector('.js-login-form_open').dispatchEvent(customEvent);"
+                code:   "var customEvent = document.createEvent('Event');" +
+                        "customEvent.initEvent('click', true, true);" +
+                        "document.querySelector('.js-login-form_open').dispatchEvent(customEvent);"
             });
         }
     });

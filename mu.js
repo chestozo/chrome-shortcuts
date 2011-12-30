@@ -2,6 +2,14 @@
 
 var rInputField = /^(INPUT|TEXTAREA|SELECT|BUTTON)$/i;
 
+var postMessage = function(message) {
+    var mes = (typeof message === "string")
+        ? { message: message }
+        : message;
+    var port = chrome.extension.connect();
+    port.postMessage(mes);
+};
+
 var targetIsValid = function(target) {
     if (target.nodeName) {
         if (rInputField.test(target.nodeName)) {
@@ -14,8 +22,7 @@ var targetIsValid = function(target) {
 var listenToKeyboard = function(charCode) {
     switch (charCode) {
         case 46:
-            var port = chrome.extension.connect();
-            port.postMessage({ message: "login:open" });
+            postMessage("login:open");
             break;
     }
 };
@@ -28,5 +35,8 @@ doc.addEventListener("keypress", function(evt) {
 
     listenToKeyboard(evt.charCode || 0);
 }, false);
+
+// Send signal to set focus on auth link.
+setTimeout(function() { postMessage("login:open"); }, 1000);
 
 })(document);
