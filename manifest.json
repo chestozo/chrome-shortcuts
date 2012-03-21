@@ -1,7 +1,7 @@
 {
-    "name": "Additional key shortcuts",
+    "name": "Keyboard shortcuts support",
     "version": "0.1",
-    "description": "Custom shortcuts",
+    "description": "1. Pin tab on \"Cmd + P\". 2. Open login dialog at ya.music automatically and on pressing \".\".",
 
     "content_scripts": [
         {
