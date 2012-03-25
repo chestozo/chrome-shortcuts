@@ -1,5 +1,11 @@
 (function(){
 
+var clickOn = function(selector) {
+    return "var customEvent = document.createEvent('MouseEvent'); \
+            customEvent.initMouseEvent('click', true, true, null, null, 1, 1, 1, 1, false, false, false, false, 0); \
+            document.querySelector('" + selector + "').dispatchEvent(customEvent);";
+};
+
 chrome.extension.onConnect.addListener(function(port) {
     port.onMessage.addListener(function(message, port) {
         if (!message) {
@@ -17,9 +23,19 @@ chrome.extension.onConnect.addListener(function(port) {
         // mu.js
         if (message.message === "login:open") {
             chrome.tabs.executeScript(null, {
-                code: "var customEvent = document.createEvent('MouseEvent'); \
-                       customEvent.initMouseEvent('click', true, true, null, null, 1, 1, 1, 1, false, false, false, false, 0); \
-                       document.querySelector('.js-login-form_open').dispatchEvent(customEvent);"
+                code: clickOn('.js-login-form_open')
+            });
+        }
+
+        // grooveshark
+        if (message.message === "grove:next") {
+            chrome.tabs.executeScript(null, {
+                code: clickOn('#player_next')
+            });
+        } else
+        if (message.message === "grove:prev") {
+            chrome.tabs.executeScript(null, {
+                code: clickOn('#player_previous')
             });
         }
     });

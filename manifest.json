@@ -1,7 +1,7 @@
 {
     "name": "Keyboard shortcuts support",
     "version": "0.1",
-    "description": "1. Pin tab on \"Cmd + P\". 2. Open login dialog at ya.music automatically and on pressing \".\".",
+    "description": "1. Pin tab on \"Cmd + P\". 2. Open login dialog at ya.music automatically and on pressing \".\". 3. Groveshark: j, n - play next; k, p - play previous.",
 
     "content_scripts": [
         {
@@ -9,10 +9,14 @@
             "js": [ "keys.js" ]
         }
 
-        // Mu
         ,{
             "matches": [ "*://music.yandex.ru/*" ],
             "js": [ "mu.js" ]
+        }
+
+        ,{
+            "matches": [ "*://grooveshark.com/*" ],
+            "js": [ "grooveshark.js" ]
         }
     ],
 

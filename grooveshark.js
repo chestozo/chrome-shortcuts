@@ -10,33 +10,40 @@ var postMessage = function(message) {
     port.postMessage(mes);
 };
 
-var targetIsValid = function(target) {
+var targetIsValid = function(evt) {
+    var target = evt.target;
+
+    if (!evt.metaKey) { // cmd key must be pressed
+        return false;
+    }
+
     if (target.nodeName) {
         if (rInputField.test(target.nodeName)) {
             return false;
         }
     }
+
     return true;
 };
 
-var listenToKeyboard = function(charCode) {
-    switch (charCode) {
-        case 46: // '.' when keypress is triggered
-            postMessage("login:open");
+var listenToKeyboard = function(keyCode) {
+    switch (keyCode) {
+        case 74: // 'j'
+            postMessage("grove:next");
+            break;
+        case 75: // 'k'
+            postMessage("grove:prev");
             break;
     }
 };
 
 // Bind to keypress event.
-doc.addEventListener("keypress", function(evt) {
-    if (!targetIsValid(evt.target)) {
+doc.addEventListener("keydown", function(evt) {
+    if (!targetIsValid(evt)) {
         return;
     }
 
-    listenToKeyboard(evt.charCode || 0);
+    listenToKeyboard(evt.which);
 }, false);
-
-// Send signal to set focus on auth link.
-setTimeout(function() { postMessage("login:open"); }, 1000);
 
 })(document);
