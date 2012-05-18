@@ -3,9 +3,7 @@
 var rInputField = /^(INPUT|TEXTAREA|SELECT|BUTTON)$/i;
 
 var postMessage = function(message) {
-    var mes = (typeof message === "string")
-        ? { message: message }
-        : message;
+    var mes = (typeof message === "string") ? { message: message } : message;
     var port = chrome.extension.connect();
     port.postMessage(mes);
 };
@@ -17,7 +15,7 @@ var Listener = function() {};
 // Static method.
 Listener.postMessage = postMessage;
 
-// Bind to keypress event.
+// Bind to keydown event.
 Listener.prototype.init = function(map) {
     var that = this;
 

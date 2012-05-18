@@ -20,10 +20,10 @@
         }
 
         // mail.yandex-team
-        /*, {
+        , {
             "matches": [ "*://mail.yandex-team.ru/*", "*://mail.yandex.ru/*" ],
-            "js": [ "ya.mail.js" ]
-        }*/
+            "js": [ "common.js", "ya.mail.js" ]
+        }
     ],
 
     "permissions": [
