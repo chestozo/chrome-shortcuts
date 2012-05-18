@@ -16,7 +16,8 @@ var map = {
 
     // ya.mail
     'mail:remove':  '.b-toolbar__item_delete',
-    'mail:compose': '.b-toolbar__item_compose'
+    'mail:compose': '.b-toolbar__item_compose',
+    'mail:flag':    '.b-message-subject .b-ico_importance'
 };
 
 chrome.extension.onConnect.addListener(function(port) {
