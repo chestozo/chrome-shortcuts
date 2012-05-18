@@ -16,7 +16,7 @@
 
         ,{
             "matches": [ "*://grooveshark.com/*" ],
-            "js": [ "grooveshark.js" ]
+            "js": [ "common.js", "grooveshark.js" ]
         }
 
         // mail.yandex-team

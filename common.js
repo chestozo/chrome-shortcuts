@@ -1,4 +1,4 @@
-;(function(doc) {
+;(function() {
 
 var rInputField = /^(INPUT|TEXTAREA|SELECT|BUTTON)$/i;
 
@@ -12,27 +12,30 @@ var postMessage = function(message) {
 
 // ----------------------------------------------------------------------------------------------------------------- //
 
-var Listener = function(map) {
-    this.map = map;
-    this.init();
-};
+var Listener = function() {};
 
 // Static method.
 Listener.postMessage = postMessage;
 
 // Bind to keypress event.
-Listener.prototype.init = function() {
+Listener.prototype.init = function(map) {
     var that = this;
-    doc.addEventListener("keypress", function(evt) {
-        if (!that.targetIsValid(evt.target)) {
+
+    this.map = map;
+
+    document.addEventListener("keydown", function(evt) {
+        if (!that.targetIsValid(evt)) {
             return;
         }
 
-        that.listenToKeyboard(evt.charCode || 0);
+        that.listenToKeyboard(evt.which || 0);
     }, false);
+
+    return this;
 };
 
-Listener.prototype.targetIsValid = function(target) {
+Listener.prototype.targetIsValid = function(evt) {
+    var target = evt.target;
     if (target.nodeName) {
         if (rInputField.test(target.nodeName)) {
             return false;
@@ -52,4 +55,4 @@ Listener.prototype.listenToKeyboard = function(charCode) {
 window._______export = {};
 window._______export.Listener = Listener;
 
-})(document);
+}());

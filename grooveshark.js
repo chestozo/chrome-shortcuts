@@ -1,49 +1,29 @@
-;(function(doc) {
+;(function() {
 
-var rInputField = /^(INPUT|TEXTAREA|SELECT|BUTTON)$/i;
+var Listener = window._______export.Listener;
 
-var postMessage = function(message) {
-    var mes = (typeof message === "string")
-        ? { message: message }
-        : message;
-    var port = chrome.extension.connect();
-    port.postMessage(mes);
-};
+var GrooveListener = function() {};
 
-var targetIsValid = function(evt) {
+GrooveListener.prototype = new Listener();
+
+GrooveListener.prototype.targetIsValid = function(evt) {
     var target = evt.target;
 
     if (!evt.metaKey) { // cmd key must be pressed
         return false;
     }
 
-    if (target.nodeName) {
-        if (rInputField.test(target.nodeName)) {
-            return false;
-        }
-    }
-
-    return true;
+    // Call base check.
+    return Listener.prototype.targetIsValid.call(this, evt);
 };
 
-var listenToKeyboard = function(keyCode) {
-    switch (keyCode) {
-        case 74: // 'j'
-            postMessage("grove:next");
-            break;
-        case 75: // 'k'
-            postMessage("grove:prev");
-            break;
-    }
-};
+// ----------------------------------------------------------------------------------------------------------------- //
 
-// Bind to keypress event.
-doc.addEventListener("keydown", function(evt) {
-    if (!targetIsValid(evt)) {
-        return;
-    }
+// 74 == j
+// 75 == k
+var grooveListener = new GrooveListener().init({
+    '74': 'grove:next',
+    '75': 'grove:prev'
+});
 
-    listenToKeyboard(evt.which);
-}, false);
-
-})(document);
+}());

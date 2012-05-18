@@ -1,13 +1,13 @@
-;(function(doc) {
+;(function() {
 
 var Listener = window._______export.Listener;
 
-// 46 == .
-var muListener = new Listener({
-    '46': 'login:open'
+// 190 == .
+var muListener = new Listener().init({
+    '190': 'login:open'
 });
 
 // Send signal to set focus on auth link.
 setTimeout(function() { Listener.postMessage("login:open"); }, 1000);
 
-})(document);
+}());
