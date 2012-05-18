@@ -6,6 +6,19 @@ var clickOn = function(selector) {
             document.querySelector('" + selector + "').dispatchEvent(customEvent);";
 };
 
+var map = {
+    // mu.js
+    'mu:login:open': '.js-login-form_open',
+
+    // grooveshark
+    'grove:next': '#player_next',
+    'grove:prev': '#player_previous',
+
+    // ya.mail
+    'mail:remove':  '.b-toolbar__item_delete',
+    'mail:compose': '.b-toolbar__item_compose'
+};
+
 chrome.extension.onConnect.addListener(function(port) {
     port.onMessage.addListener(function(message, port) {
         if (!message) {
@@ -13,36 +26,19 @@ chrome.extension.onConnect.addListener(function(port) {
         }
 
         // keys.js
+        // Global events.
         if (message.message === "pin-toggle") {
             // pin / unpin tab
             chrome.tabs.getSelected(null, function(tab) {
-                chrome.tabs.update(tab.id, { pinned: !tab.pinned })
+                chrome.tabs.update(tab.id, { pinned: !tab.pinned });
             });
         }
 
-        // mu.js
-        if (message.message === "login:open") {
+        // Custom sites events.
+        var clickTargetSelector = map[message.message];
+        if (clickTargetSelector) {
             chrome.tabs.executeScript(null, {
-                code: clickOn('.js-login-form_open')
-            });
-        }
-
-        // grooveshark
-        if (message.message === "grove:next") {
-            chrome.tabs.executeScript(null, {
-                code: clickOn('#player_next')
-            });
-        } else
-        if (message.message === "grove:prev") {
-            chrome.tabs.executeScript(null, {
-                code: clickOn('#player_previous')
-            });
-        }
-
-        // ya.mail
-        if (message.message === "mail:remove") {
-            chrome.tabs.executeScript(null, {
-                code: clickOn('.b-toolbar__item_delete')
+                code: clickOn(clickTargetSelector)
             });
         }
     });

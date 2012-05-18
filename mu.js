@@ -4,10 +4,10 @@ var Listener = window._______export.Listener;
 
 // 190 == .
 var muListener = new Listener().init({
-    '190': 'login:open'
+    '190': 'mu:login:open'
 });
 
 // Send signal to set focus on auth link.
-setTimeout(function() { Listener.postMessage("login:open"); }, 1000);
+setTimeout(function() { Listener.postMessage("mu:login:open"); }, 1000);
 
 }());
