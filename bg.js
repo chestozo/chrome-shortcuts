@@ -38,6 +38,13 @@ chrome.extension.onConnect.addListener(function(port) {
                 code: clickOn('#player_previous')
             });
         }
+
+        // ya.mail
+        if (message.message === "mail:remove") {
+            chrome.tabs.executeScript(null, {
+                code: clickOn('.b-toolbar__item_delete')
+            });
+        }
     });
 });
 

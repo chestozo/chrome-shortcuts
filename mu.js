@@ -1,42 +1,13 @@
 ;(function(doc) {
 
-var rInputField = /^(INPUT|TEXTAREA|SELECT|BUTTON)$/i;
+var Listener = window._______export.Listener;
 
-var postMessage = function(message) {
-    var mes = (typeof message === "string")
-        ? { message: message }
-        : message;
-    var port = chrome.extension.connect();
-    port.postMessage(mes);
-};
-
-var targetIsValid = function(target) {
-    if (target.nodeName) {
-        if (rInputField.test(target.nodeName)) {
-            return false;
-        }
-    }
-    return true;
-};
-
-var listenToKeyboard = function(charCode) {
-    switch (charCode) {
-        case 46: // '.' when keypress is triggered
-            postMessage("login:open");
-            break;
-    }
-};
-
-// Bind to keypress event.
-doc.addEventListener("keypress", function(evt) {
-    if (!targetIsValid(evt.target)) {
-        return;
-    }
-
-    listenToKeyboard(evt.charCode || 0);
-}, false);
+// 46 == .
+var muListener = new Listener({
+    '46': 'login:open'
+});
 
 // Send signal to set focus on auth link.
-setTimeout(function() { postMessage("login:open"); }, 1000);
+setTimeout(function() { Listener.postMessage("login:open"); }, 1000);
 
 })(document);
