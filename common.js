@@ -58,21 +58,21 @@ Listener.prototype.handleShortcut = function(evt) {
     var which = evt.which || 0;
     var message = this.map[which];
     if (message) {
+        // Normalize message to object if string is specified.
         if (typeof message === 'string') {
-            postMessage(message);
-            return true;
+            message = { message: message };
         }
 
-        if (typeof message === 'object') {
-            var checked = true;
-            checked = checked && (!message.meta || (message.meta && evt.metaKey));
-            checked = checked && (!message.shift || (message.shift && evt.shiftKey));
-            checked = checked && (!message.ctrl || (message.ctrl && evt.ctrlKey));
+        // Checks for special keys.
+        // NOTE: if special key is not mandatory, but it was pressend - check fails.
+        var checked =
+            ((!message.meta && !evt.metaKey) || (message.meta && evt.metaKey)) &&
+            ((!message.shift && !evt.shiftKey) || (message.shift && evt.shiftKey)) &&
+            ((!message.ctrl && !evt.ctrlKey) || (message.ctrl && evt.ctrlKey));
 
-            if (checked) {
-                postMessage(message.message);
-                return true;
-            }
+        if (checked) {
+            postMessage(message.message);
+            return true;
         }
     }
 };
