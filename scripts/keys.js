@@ -5,7 +5,7 @@ var processKey = function(evt) {
         // Send message to pin / unpin.
         var port = chrome.extension.connect();
         port.postMessage({ message: "chrome:tab:pin:toggle" });
-        
+
         evt.preventDefault(); // prevent print dialog
     }
 };

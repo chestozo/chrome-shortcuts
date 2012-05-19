@@ -6,23 +6,23 @@
     "content_scripts": [
         {
             "matches": [ "*://*/*" ],
-            "js": [ "keys.js" ]
+            "js": [ "scripts/keys.js" ]
         }
 
         ,{
             "matches": [ "*://music.yandex.ru/*" ],
-            "js": [ "common.js", "mu.js" ]
+            "js": [ "common.js", "scripts/mu.js" ]
         }
 
         ,{
             "matches": [ "*://grooveshark.com/*" ],
-            "js": [ "common.js", "grooveshark.js" ]
+            "js": [ "common.js", "scripts/grooveshark.js" ]
         }
 
-        // mail.yandex-team
+        // ya.mail
         , {
             "matches": [ "*://mail.yandex-team.ru/*", "*://mail.yandex.ru/*" ],
-            "js": [ "common.js", "ya.mail.js" ]
+            "js": [ "common.js", "scripts/ya.mail.js" ]
         }
     ],
 
