@@ -32,6 +32,7 @@ Listener.prototype.init = function(map) {
     return this;
 };
 
+// Если кнопка нажата в поле ввода - не пытаемся обработать shortcut.
 Listener.prototype.targetIsValid = function(evt) {
     var target = evt.target;
     if (target.nodeName) {

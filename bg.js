@@ -1,12 +1,24 @@
 (function(){
 
-var clickOn = function(selector) {
+var createClickScript = function(selector) {
     return "var customEvent = document.createEvent('MouseEvent'); \
             customEvent.initMouseEvent('click', true, true, null, null, 1, 1, 1, 1, false, false, false, false, 0); \
             document.querySelector('" + selector + "').dispatchEvent(customEvent);";
 };
 
+var toggleTabPinned = function() {
+    // Get tab not only for id, but for pinned state too.
+    chrome.tabs.getSelected(null, function(tab) {
+        chrome.tabs.update(tab.id, { pinned: !tab.pinned });
+    });
+};
+
+// If value is string: it is a selector and we execute click on that element within a page.
+// If value is a function: we execute it in background page context.
 var map = {
+    // keys.js: global chrome shortcuts
+    'chrome:tab:pin:toggle': toggleTabPinned,
+
     // mu.js
     'mu:login:open': '.js-login-form_open',
 
@@ -26,23 +38,19 @@ chrome.extension.onConnect.addListener(function(port) {
             return;
         }
 
-        // keys.js
-        // Global events.
-        if (message.message === "pin-toggle") {
-            // pin / unpin tab
-            chrome.tabs.getSelected(null, function(tab) {
-                chrome.tabs.update(tab.id, { pinned: !tab.pinned });
-            });
+        var action = map[message.message];
+        if (!action) {
+            return;
         }
 
-        // Custom sites events.
-        var clickTargetSelector = map[message.message];
-        if (clickTargetSelector) {
+        if (typeof action === 'function') {
+            action.call(null);
+        } else {
             chrome.tabs.executeScript(null, {
-                code: clickOn(clickTargetSelector)
+                code: createClickScript(action)
             });
         }
     });
 });
 
-})(document, window);
+}());
