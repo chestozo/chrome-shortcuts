@@ -27,6 +27,7 @@ Listener.prototype.init = function(map) {
         }
 
         if (that.handleShortcut(evt)) {
+            // prevent default action. For example it will prevent standart Chrome print dialog.
             evt.preventDefault();
             evt.stopPropagation();
         }
@@ -70,6 +71,7 @@ Listener.prototype.handleShortcut = function(evt) {
 
             if (checked) {
                 postMessage(message.message);
+                return true;
             }
         }
     }

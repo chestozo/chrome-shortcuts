@@ -17,7 +17,7 @@ var toggleTabPinned = function() {
 // If value is string: it is a selector and we execute click on that element within a page.
 // If value is a function: we execute it in background page context.
 var map = {
-    // keys.js: global chrome shortcuts
+    // chrome.js: global chrome shortcuts
     'chrome:tab:pin:toggle': toggleTabPinned,
 
     // mu.js
