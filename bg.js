@@ -1,9 +1,10 @@
 (function(){
 
 var createClickScript = function(selector) {
-    return "var customEvent = document.createEvent('MouseEvent'); \
-            customEvent.initMouseEvent('click', true, true, null, null, 1, 1, 1, 1, false, false, false, false, 0); \
-            document.querySelector('" + selector + "').dispatchEvent(customEvent);";
+    return "" +
+        "var customEvent = document.createEvent('MouseEvent');" +
+        "customEvent.initMouseEvent('click', true, true, null, null, 1, 1, 1, 1, false, false, false, false, 0);" +
+        "document.querySelector('" + selector + "').dispatchEvent(customEvent);";
 };
 
 var toggleTabPinned = function() {
@@ -33,7 +34,9 @@ var map = {
 
     // jira
     'jira:ticket:edit': '#editIssue',
-    'jira:ticket:resolve': '#action_id_11'
+    'jira:ticket:resolve': '#action_id_11',
+    'jira:enter': '#issue-workflow-transition-submit',
+    'jira:cancel': '.cancel:not(#issue-comment-add-cancel)'
 };
 
 chrome.extension.onConnect.addListener(function(port) {

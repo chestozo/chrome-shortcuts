@@ -1,7 +1,5 @@
 ;(function() {
 
-var rInputField = /^(INPUT|TEXTAREA|SELECT|BUTTON)$/i;
-
 var postMessage = function(message) {
     var mes = (typeof message === "string") ? { message: message } : message;
     var port = chrome.extension.connect();
@@ -10,7 +8,9 @@ var postMessage = function(message) {
 
 // ----------------------------------------------------------------------------------------------------------------- //
 
-var Listener = function() {};
+var Listener = function(rInput) {
+    this.rInput = rInput || /^(INPUT|TEXTAREA|SELECT|BUTTON)$/i;
+};
 
 // Static method.
 Listener.postMessage = postMessage;
@@ -40,7 +40,7 @@ Listener.prototype.targetIsValid = function(evt) {
     var target = evt.target;
 
     if (target.nodeName) {
-        if (rInputField.test(target.nodeName)) {
+        if (this.rInput.test(target.nodeName)) {
             return false;
         }
     }
@@ -66,6 +66,7 @@ Listener.prototype.handleShortcut = function(evt) {
             var checked = true;
             checked = checked && (!message.meta || (message.meta && evt.metaKey));
             checked = checked && (!message.shift || (message.shift && evt.shiftKey));
+            checked = checked && (!message.ctrl || (message.ctrl && evt.ctrlKey));
 
             if (checked) {
                 postMessage(message.message);
