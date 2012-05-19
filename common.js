@@ -26,7 +26,10 @@ Listener.prototype.init = function(map) {
             return;
         }
 
-        that.listenToKeyboard(evt);
+        if (that.handleShortcut(evt)) {
+            evt.preventDefault();
+            evt.stopPropagation();
+        }
     }, false);
 
     return this;
@@ -45,13 +48,21 @@ Listener.prototype.targetIsValid = function(evt) {
     return true;
 };
 
-Listener.prototype.listenToKeyboard = function(evt) {
+/**
+ *
+ * @param evt keydown event instance.
+ * @return {Boolean} true in case shortcut was triggered.
+ */
+Listener.prototype.handleShortcut = function(evt) {
     var which = evt.which || 0;
     var message = this.map[which];
     if (message) {
         if (typeof message === 'string') {
             postMessage(message);
-        } else if (typeof message === 'object') {
+            return true;
+        }
+
+        if (typeof message === 'object') {
             var checked = true;
             checked = checked && (!message.meta || (message.meta && evt.metaKey));
             checked = checked && (!message.shift || (message.shift && evt.shiftKey));

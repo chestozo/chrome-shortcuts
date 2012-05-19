@@ -24,6 +24,12 @@
             "matches": [ "*://mail.yandex-team.ru/*", "*://mail.yandex.ru/*" ],
             "js": [ "common.js", "scripts/ya.mail.js" ]
         }
+
+        // jira
+        , {
+            "matches": [ "*://jira.yandex-team.ru/*" ],
+            "js": [ "common.js", "scripts/jira.js" ]
+        }
     ],
 
     "permissions": [

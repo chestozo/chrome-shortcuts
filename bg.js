@@ -29,7 +29,11 @@ var map = {
     // ya.mail
     'mail:remove':  '.b-toolbar__item_delete',
     'mail:compose': '.b-toolbar__item_compose',
-    'mail:flag':    '.b-message-subject .b-ico_importance'
+    'mail:flag':    '.b-message-subject .b-ico_importance',
+
+    // jira
+    'jira:ticket:edit': '#editIssue',
+    'jira:ticket:resolve': '#action_id_11'
 };
 
 chrome.extension.onConnect.addListener(function(port) {
