@@ -4,7 +4,7 @@ var createClickScript = function(selector) {
     return "" +
         "var customEvent = document.createEvent('MouseEvent');" +
         "customEvent.initMouseEvent('click', true, true, null, null, 1, 1, 1, 1, false, false, false, false, 0);" +
-        "document.querySelector('" + selector + "').dispatchEvent(customEvent);";
+        "(!!jQuery ? jQuery('" + selector + "')[0] : document.querySelector('" + selector + "')).dispatchEvent(customEvent);";
 };
 
 var toggleTabPinned = function() {
@@ -30,8 +30,8 @@ var map = {
     // ya.mail
     'mail:remove':  '.b-toolbar__item_delete',
     'mail:compose': '.b-toolbar__item_compose',
-    'mail:flag':    '.b-message-subject .b-ico_importance',
-    'mail:read':    '.b-toolbar__item_mark-as-read:not(.g-hidden), .b-toolbar__item_mark-as-unread:not(.g-hidden)',
+    'mail:flag':    '.b-message-subject .b-ico_importance:visible',
+    'mail:read':    '.b-toolbar__item_mark-as-read:visible, .b-toolbar__item_mark-as-unread:visible',
 
     // jira
     'jira:ticket:edit': '#editIssue',

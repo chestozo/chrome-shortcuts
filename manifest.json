@@ -22,7 +22,7 @@
         // ya.mail
         , {
             "matches": [ "*://mail.yandex-team.ru/*", "*://mail.yandex.ru/*" ],
-            "js": [ "common.js", "scripts/ya.mail.js" ]
+            "js": [ "jquery.1-7-1.min.js", "common.js", "scripts/ya.mail.js" ]
         }
 
         // jira
