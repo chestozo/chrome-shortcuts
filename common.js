@@ -26,7 +26,7 @@ Listener.prototype.init = function(map) {
             return;
         }
 
-        that.listenToKeyboard(evt.which || 0);
+        that.listenToKeyboard(evt);
     }, false);
 
     return this;
@@ -35,18 +35,31 @@ Listener.prototype.init = function(map) {
 // Если кнопка нажата в поле ввода - не пытаемся обработать shortcut.
 Listener.prototype.targetIsValid = function(evt) {
     var target = evt.target;
+
     if (target.nodeName) {
         if (rInputField.test(target.nodeName)) {
             return false;
         }
     }
+
     return true;
 };
 
-Listener.prototype.listenToKeyboard = function(charCode) {
-    var message = this.map[charCode];
+Listener.prototype.listenToKeyboard = function(evt) {
+    var which = evt.which || 0;
+    var message = this.map[which];
     if (message) {
-        postMessage(message);
+        if (typeof message === 'string') {
+            postMessage(message);
+        } else if (typeof message === 'object') {
+            var checked = true;
+            checked = checked && (!message.meta || (message.meta && evt.metaKey));
+            checked = checked && (!message.shift || (message.shift && evt.shiftKey));
+
+            if (checked) {
+                postMessage(message.message);
+            }
+        }
     }
 };
 
