@@ -3,7 +3,8 @@ Chrome extension with usefull keyboard navigation shortcuts that I use.
 
 ### Add another site support
 1. You need to specify site mask in the `manifest.json` file (like others).
-2. You need to create one more file in the `scripts` dir for the site. There you can specify keys, that will be handled on this site.
+2. You need to create one more file in the `scripts` dir for the site.
+   There you can specify keys, that will be handled on this site.
 For example:
 
 ```js
