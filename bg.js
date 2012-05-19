@@ -31,6 +31,7 @@ var map = {
     'mail:remove':  '.b-toolbar__item_delete',
     'mail:compose': '.b-toolbar__item_compose',
     'mail:flag':    '.b-message-subject .b-ico_importance',
+    'mail:read':    '.b-toolbar__item_mark-as-read:not(.g-hidden), .b-toolbar__item_mark-as-unread:not(.g-hidden)',
 
     // jira
     'jira:ticket:edit': '#editIssue',
