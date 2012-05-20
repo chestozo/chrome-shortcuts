@@ -4,7 +4,7 @@ var createClickScript = function(selector) {
     return "" +
         "var customEvent = document.createEvent('MouseEvent');" +
         "customEvent.initMouseEvent('click', true, true, null, null, 1, 1, 1, 1, false, false, false, false, 0);" +
-        "(!!jQuery ? jQuery('" + selector + "')[0] : document.querySelector('" + selector + "')).dispatchEvent(customEvent);";
+        "(!!window.jQuery ? jQuery('" + selector + "')[0] : document.querySelector('" + selector + "')).dispatchEvent(customEvent);";
 };
 
 var toggleTabPinned = function() {
