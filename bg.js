@@ -36,7 +36,7 @@ var map = {
     // jira
     'jira:ticket:edit': '#editIssue',
     'jira:ticket:resolve': '#action_id_11',
-    'jira:enter': '#issue-workflow-transition-submit',
+    'jira:enter': '#issue-workflow-transition-submit,#issue-comment-add-submit',
     'jira:cancel': '.cancel:not(#issue-comment-add-cancel)'
 };
 
