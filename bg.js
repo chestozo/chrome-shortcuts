@@ -32,6 +32,7 @@ var map = {
     'mail:compose': '.b-toolbar__item_compose',
     'mail:flag':    '.b-message-subject .b-ico_importance:visible',
     'mail:read':    '.b-toolbar__item_mark-as-read:visible, .b-toolbar__item_mark-as-unread:visible',
+    'mail:archive': '.daria-action[title=archive][data-action=move]',
 
     // jira
     'jira:ticket:edit': '#editIssue',
