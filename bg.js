@@ -33,6 +33,7 @@ var map = {
     'mail:flag':    '.b-message-subject .b-ico_importance:visible',
     'mail:read':    '.b-toolbar__item_mark-as-read:visible, .b-toolbar__item_mark-as-unread:visible',
     'mail:archive': '.daria-action[title=archive][data-action=move]',
+    'mail:select:all': '.b-messages-head__checkbox:visible',
 
     // jira
     'jira:ticket:edit': '#editIssue',
