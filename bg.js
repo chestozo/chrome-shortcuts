@@ -34,6 +34,9 @@ var map = {
     'mail:read':    '.b-toolbar__item_mark-as-read:visible, .b-toolbar__item_mark-as-unread:visible',
     'mail:archive': '.daria-action[title=archive][data-action=move]',
     'mail:select:all': '.b-messages-head__checkbox:visible',
+    'mail:thread:prev': '.b-grid-item_current:visible\').next(\'.b-grid-item_table:visible', // HACK!
+    'mail:thread:next': '.b-grid-item_current:visible\').prev(\'.b-grid-item_table:visible', // HACK!
+    'mail:goto:inbox': '.b-folders__folder:visible:first a',
 
     // jira
     'jira:ticket:edit': '#editIssue',
