@@ -2,6 +2,8 @@
 
 var Listener = window._______export.Listener;
 
+// Keydown key code:
+//
 // 51 == 3(#)
 // 67 == c
 // 70 == f
@@ -11,6 +13,8 @@ var Listener = window._______export.Listener;
 // 74 == j
 // 75 == k
 // 73 == i
+// 86 == v
+
 var yaMailListener = new Listener().init({
     '51': { shift: true, message: 'mail:remove' },
     '67': 'mail:compose',
@@ -20,7 +24,8 @@ var yaMailListener = new Listener().init({
     '56': { shift: true, message: 'mail:select:all' },
     '74': 'mail:thread:prev',
     '75': 'mail:thread:next',
-    '73': 'mail:goto:inbox'
+    '73': 'mail:goto:inbox',
+    '86': 'mail:markAs:done'
 });
 
 }());

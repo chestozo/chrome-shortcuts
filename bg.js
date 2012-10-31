@@ -28,21 +28,22 @@ var map = {
     'grove:prev': '#player_previous',
 
     // ya.mail
-    'mail:remove':  '.b-toolbar__item_delete',
-    'mail:compose': '.b-toolbar__item_compose',
-    'mail:flag':    '.b-message-subject .b-ico_importance:visible',
-    'mail:read':    '.b-toolbar__item_mark-as-read:visible, .b-toolbar__item_mark-as-unread:visible',
-    'mail:archive': '.daria-action[title=archive][data-action=move]',
-    'mail:select:all': '.b-messages-head__checkbox:visible',
+    'mail:remove':      '.b-toolbar__item_delete',
+    'mail:compose':     '.b-toolbar__item_compose',
+    'mail:flag':        '.b-message-subject .b-ico_importance:visible',
+    'mail:read':        '.b-toolbar__item_mark-as-read:visible, .b-toolbar__item_mark-as-unread:visible',
+    'mail:select:all':  '.b-messages-head__checkbox:visible',
     'mail:thread:prev': '.b-grid-item_current:visible\').next(\'.b-grid-item_table:visible', // HACK!
     'mail:thread:next': '.b-grid-item_current:visible\').prev(\'.b-grid-item_table:visible', // HACK!
-    'mail:goto:inbox': '.b-folders__folder:visible:first a',
+    'mail:goto:inbox':  '.b-folders__folder:visible:first a',
+    'mail:archive':     '.daria-action[title=archive][data-action=move]',
+    'mail:markAs:done': '.unlabel-2080000000204310141:not(.g-hidden) .daria-action, .label-2080000000204310141:not(.g-hidden) .daria-action', // This same selector is used to mark and unmark letter.
 
     // jira
-    'jira:ticket:edit': '#editIssue',
+    'jira:ticket:edit':    '#editIssue',
     'jira:ticket:resolve': '#action_id_11',
-    'jira:enter': '#issue-workflow-transition-submit,#issue-comment-add-submit',
-    'jira:cancel': '.cancel:not(#issue-comment-add-cancel)'
+    'jira:enter':          '#issue-workflow-transition-submit,#issue-comment-add-submit',
+    'jira:cancel':         '.cancel:not(#issue-comment-add-cancel)'
 };
 
 chrome.extension.onConnect.addListener(function(port) {
