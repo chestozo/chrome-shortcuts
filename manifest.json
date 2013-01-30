@@ -28,7 +28,7 @@
         // jira
         , {
             "matches": [ "*://jira.yandex-team.ru/*" ],
-            "js": [ "common.js", "scripts/jira.js" ]
+            "js": [ "jquery.1-7-1.min.js", "common.js", "scripts/jira.js" ]
         }
     ],
 

@@ -7,18 +7,53 @@ var createClickScript = function(selector) {
         "(!!window.jQuery ? jQuery('" + selector + "')[0] : document.querySelector('" + selector + "')).dispatchEvent(customEvent);";
 };
 
-var toggleTabPinned = function() {
+// ----------------------------------------------------------------------------------------------------------------- //
+
+var BgFunc = function(f) {
+    this.f = f;
+};
+
+BgFunc.prototype.run = function() {
+    this.f.call(null);
+};
+
+var PageFunc = function(f) {
+    this.f = f;
+};
+
+PageFunc.prototype.run = function() {
+    chrome.tabs.executeScript(null, {
+        code: '(' + this.f.toString() + ')()'
+    });
+};
+
+// ----------------------------------------------------------------------------------------------------------------- //
+// Functions.
+
+var toggleTabPinnedState = function() {
     // Get tab not only for id, but for pinned state too.
     chrome.tabs.getSelected(null, function(tab) {
         chrome.tabs.update(tab.id, { pinned: !tab.pinned });
     });
 };
 
+var jiraCmdEnter = function() {
+    var $active = $(document.activeElement);
+    if ($active.is('#comment')) {
+        $active.closest('form')
+        .find(':submit')
+        //.css('border', '2px solid red');
+        .trigger('click');
+    }
+};
+
+// ----------------------------------------------------------------------------------------------------------------- //
+
 // If value is string: it is a selector and we execute click on that element within a page.
 // If value is a function: we execute it in background page context.
 var map = {
     // chrome.js: global chrome shortcuts
-    'chrome:tab:pin:toggle': toggleTabPinned,
+    'chrome:tab:pin:toggle': new BgFunc(toggleTabPinnedState),
 
     // mu.js
     'mu:login:open': '.js-login-form_open',
@@ -42,7 +77,7 @@ var map = {
     // jira
     'jira:ticket:edit':    '#editIssue',
     'jira:ticket:resolve': '#action_id_11',
-    'jira:enter':          '#issue-workflow-transition-submit,#issue-comment-add-submit',
+    'jira:enter':          new PageFunc(jiraCmdEnter),
     'jira:cancel':         '.cancel:not(#issue-comment-add-cancel)'
 };
 
@@ -57,8 +92,8 @@ chrome.extension.onConnect.addListener(function(port) {
             return;
         }
 
-        if (typeof action === 'function') {
-            action.call(null);
+        if (typeof action === 'object') {
+            action.run();
         } else {
             chrome.tabs.executeScript(null, {
                 code: createClickScript(action)
